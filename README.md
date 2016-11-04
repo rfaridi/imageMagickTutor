@@ -139,3 +139,27 @@ in the above `%i` gives the full directory path, `%f` gives the file name
 `%w`  = width of the image
 `%h` = height of the image
 
+To convert a list of files into a directory of thumbnail, we can do the following:
+
+```
+convert *.jpg   -thumbnail 120x90 \
+          -set filename:fname '%t_tn' +adjoin '%[filename:fname].gif'
+```
+
+`*.jpg` means any file with extension `jpg`
+`-thumbnail` - special thumbnail command
+`filename-fname` - setting filename patter
+`%t_tn` - i think `%t` means the first part of a file name without the extension, on the other hand `%e` is the extension part i guess.
+
+`+adjoin` - not sure what it does
+
+`%[filename:fname]` puts the pattern in place
+
+** Batch processing alternatives
+
+```
+mkdir thumbnails
+  for f in *.jpg
+  do   convert $f -thumbnail 200x90 thumbnails/$f.gif
+  done
+```
